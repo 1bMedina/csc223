@@ -22,14 +22,16 @@ int height();
 struct node *mirrorTree();
 struct node *deleteTree();
 
-char *malloc();
+char *alloc();
 int free();
 
-int main(){
-    int op = 0;
+int main()
+{
+    int op;
     int val;
     struct node *p;
     tree = NULL;
+    op = 0;
 
     while(op != 14){
         printf("\nMENU\n");
@@ -100,7 +102,9 @@ struct node *insert(tree,val)
 struct node *tree;
 int val;
 {
-    struct node *n = (struct node*)malloc(sizeof(struct node));
+    struct node *n;
+    n  = alloc(6);
+
     n->data = val;
     n->left = NULL;
     n->right = NULL;
@@ -183,18 +187,22 @@ int val;
         tree->right = deleteNode(tree->right,val);
     }
     else{
-        if(!tree->left){
-            struct node *r = tree->right;
+        if(!tree->left)
+        {
+            struct node *r;
+            r = tree->right;
             free(tree);
             return r;
         }
         else if(!tree->right){
-            struct node *l = tree->left;
+            struct node *l;
+            l = tree->left;
             free(tree);
             return l;
         }
         else{
-            struct node *s = smallest(tree->right);
+            struct node *s;
+            s  = smallest(tree->right);
             tree->data = s->data;
             tree->right = deleteNode(tree->right,s->data);
         }
@@ -229,8 +237,10 @@ int height(tree)
 struct node *tree;
 {
     if(!tree) return 0;
-    int l = height(tree->left);
-    int r = height(tree->right);
+    int l;
+    l = height(tree->left);
+    int r;
+    r = height(tree->right);
     return (l>r?l:r)+1;
 }
 
@@ -238,7 +248,8 @@ struct node *mirrorTree(tree)
 struct node *tree;
 {
     if(tree){
-        struct node *tmp = tree->left;
+        struct node *tmp;
+        tmp = tree->left;
         tree->left = tree->right;
         tree->right = tmp;
         mirrorTree(tree->left);
